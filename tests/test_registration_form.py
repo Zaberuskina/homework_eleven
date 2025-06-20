@@ -4,9 +4,9 @@ from pages.registration_page import RegistrationPage
 
 
 @allure.title("Успешная регистрация пользователя через UI")
-def test_submit_registration_form(setup_browser):
+def test_submit_registration_form():
     student = Student()
-    registration_page = RegistrationPage(setup_browser)
+    registration_page = RegistrationPage()
 
     with allure.step("Открыть страницу регистрации"):
         registration_page.open()
@@ -16,4 +16,3 @@ def test_submit_registration_form(setup_browser):
 
     with allure.step("Проверить успешную регистрацию"):
         registration_page.should_have_registered(student)
-
