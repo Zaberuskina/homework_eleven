@@ -1,4 +1,4 @@
-from selene import have, command
+from selene import have, command, query
 from selene.support.shared import browser
 from pathlib import Path
 from locators.registration_locators import RegistrationPageLocators as Locators
@@ -46,7 +46,7 @@ class RegistrationPage:
     def should_have_registered(self, student: Student):
         browser.element(Locators.MODAL_TITLE).should(have.text('Thanks for submitting the form'))
         actual_values = [
-            row.element('td:nth-child(2)').text
+            row.element('td:nth-child(2)').get(query.text)
             for row in browser.all(Locators.TABLE_ROWS)
         ]
         expected_values = [
@@ -56,7 +56,7 @@ class RegistrationPage:
             student.phone,
             f'{student.birth_day} {student.birth_month},{student.birth_year}',
             student.subject,
-            'Sports',
+            'Sports',  # отображается только Sports, Music отсутствует
             student.picture,
             student.address,
             f'{student.state} {student.city}'
