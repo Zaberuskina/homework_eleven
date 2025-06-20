@@ -10,6 +10,7 @@ class RegistrationPage:
 
     def open(self):
         browser.open('/automation-practice-form')
+        browser.driver.execute_script("document.body.style.zoom='0.5'")
         return self
 
     def register(self, student: Student):
@@ -22,7 +23,7 @@ class RegistrationPage:
         browser.element(Locators.DATE_INPUT).click()
         browser.element(Locators.MONTH_SELECT).type(student.birth_month)
         browser.element(Locators.YEAR_SELECT).type(student.birth_year)
-        browser.element(f'.react-datepicker__day--0{student.birth_day:0>2}:not(.react-datepicker__day--outside-month)').click()
+        browser.element(f'.react-datepicker__day--0{student.birth_day.zfill(2)}:not(.react-datepicker__day--outside-month)').click()
 
         browser.element(Locators.SUBJECTS_INPUT).type(student.subject).press_enter()
         browser.element(Locators.HOBBIES_SPORTS).perform(command.js.click)
@@ -33,10 +34,11 @@ class RegistrationPage:
 
         browser.element(Locators.ADDRESS_INPUT).type(student.address)
 
-        browser.element(Locators.STATE_SELECT).perform(command.js.click)
-        browser.all(Locators.STATE_OPTIONS).element_by(have.exact_text(student.state)).click()
-        browser.element(Locators.CITY_SELECT).perform(command.js.click)
-        browser.all(Locators.CITY_OPTIONS).element_by(have.exact_text(student.city)).click()
+        browser.element(Locators.STATE_SELECT).perform(command.js.scroll_into_view).click()
+        browser.element('#react-select-3-input').type(student.state).press_enter()
+
+        browser.element(Locators.CITY_SELECT).perform(command.js.scroll_into_view).click()
+        browser.element('#react-select-4-input').type(student.city).press_enter()
 
         browser.element(Locators.SUBMIT_BUTTON).perform(command.js.click)
         return self
