@@ -2,6 +2,7 @@ import allure
 from data.student_data import Student
 from pages.registration_page import RegistrationPage
 
+
 @allure.title("Успешная регистрация пользователя через UI")
 def test_submit_registration_form(setup_browser):
     student = Student()
@@ -10,7 +11,7 @@ def test_submit_registration_form(setup_browser):
     with allure.step("Открыть страницу регистрации"):
         registration_page.open()
 
-    with allure.step("Заполнить форму студента"):
+    with allure.step("Заполнить и отправить форму"):
         registration_page.register(student)
 
     with allure.step("Проверить успешную регистрацию"):
