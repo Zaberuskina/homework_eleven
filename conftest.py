@@ -1,12 +1,9 @@
 import pytest
-
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selene import Config
 from selene.support.shared import browser
 
 from utils import attach
-
 
 @pytest.fixture(scope='function', autouse=True)
 def setup_browser():
@@ -26,11 +23,9 @@ def setup_browser():
         options=options
     )
 
-    browser.config = Config(
-        driver=driver,
-        base_url="https://demoqa.com",
-        timeout=10
-    )
+    browser.config.driver = driver
+    browser.config.base_url = "https://demoqa.com"
+    browser.config.timeout = 10
 
     yield
 
